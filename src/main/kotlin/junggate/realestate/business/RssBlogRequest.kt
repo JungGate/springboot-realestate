@@ -13,7 +13,7 @@ import java.net.URL
 @RestController
 class RssBlogRequest{
     @RequestMapping("rss/read")
-    fun request_rss_read(@RequestParam(value = "name", defaultValue = "http://blog.rss.naver.com/iles1026.xml")url:String) : String{
+    fun request_rss_read(@RequestParam(value = "url", defaultValue = "http://blog.rss.naver.com/iles1026.xml")url:String) : String{
 
         val feed = requestBlogInfo(url)
         return  "{\"title\" : \"${feed.title}\"}"
