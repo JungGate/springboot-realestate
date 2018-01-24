@@ -31,9 +31,9 @@ fun test_blog(context: ConfigurableApplicationContext) {
 
 
 fun test_feed(context: ConfigurableApplicationContext) {
-    val service = context.getBean(FeedService::class.java)
-    val repository = context.getBean(BlogRepository::class.java)
-    val blog = repository.findByUrl("aaa").first()
+    val serviceFeed = context.getBean(FeedService::class.java)
+    val serviceBlog = context.getBean(BlogService::class.java)
+    val blog = serviceBlog.findByUrl("aaa").first()
 
     var feed = Feed()
     feed.author = "aut"
@@ -41,5 +41,5 @@ fun test_feed(context: ConfigurableApplicationContext) {
     feed.blog = blog
 
     //Test Insert
-    service.insertFeed(feed)
+    serviceFeed.insertFeed(feed)
 }

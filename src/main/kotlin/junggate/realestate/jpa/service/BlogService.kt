@@ -14,7 +14,9 @@ import java.util.*
 
 @Service
 class BlogService @Autowired constructor(private val blogRepository: BlogRepository){
-
+    fun findByUrl(url:String): MutableList<Blog>{
+        return blogRepository.findByUrl(url)
+    }
 
     fun insertBlog(url:String){
         var blog= Blog()
