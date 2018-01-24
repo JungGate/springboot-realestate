@@ -15,7 +15,7 @@ class RealestateApplication
 fun main(args: Array<String>) {
     val context = SpringApplication.run(RealestateApplication::class.java, *args)
     test_blog(context)
-    test_feed(context)
+//    test_feed(context)
 }
 
 
@@ -23,10 +23,12 @@ fun test_blog(context: ConfigurableApplicationContext) {
     val service = context.getBean(BlogService::class.java)
 
     //Test Insert
-    service.insertBlog("aaa")
+    service.insertBlog("https://rss.blog.naver.com/mltmkr.xml")
+    service.insertBlog("https://rss.blog.naver.com/ppassong.xml")
+    service.insertBlog("https://rss.blog.naver.com/dadaacademy.xml")
 
     //Teet Update
-    service.updateBlogCurrentTime("aaa")
+//    service.updateBlogCurrentTime("aaa")
 }
 
 
