@@ -1,8 +1,9 @@
 package junggate.realestate
 
+import junggate.realestate.jpa.model.Feed
 import junggate.realestate.jpa.repository.BlogRepository
 import junggate.realestate.jpa.service.BlogService
-import org.springframework.beans.factory.annotation.Autowired
+import junggate.realestate.jpa.service.FeedService
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.context.ConfigurableApplicationContext
@@ -13,11 +14,12 @@ class RealestateApplication
 
 fun main(args: Array<String>) {
     val context = SpringApplication.run(RealestateApplication::class.java, *args)
-    test_db(context)
+    test_blog(context)
+    test_feed(context)
 }
 
 
-fun test_db(context: ConfigurableApplicationContext) {
+fun test_blog(context: ConfigurableApplicationContext) {
     val service = context.getBean(BlogService::class.java)
 
     //Test Insert
@@ -25,4 +27,19 @@ fun test_db(context: ConfigurableApplicationContext) {
 
     //Teet Update
     service.updateBlogCurrentTime("aaa")
+}
+
+
+fun test_feed(context: ConfigurableApplicationContext) {
+    val service = context.getBean(FeedService::class.java)
+    val repository = context.getBean(BlogRepository::class.java)
+    val blog = repository.findByUrl("aaa").first()
+
+    var feed = Feed()
+    feed.author = "aut"
+    feed.category = "cat"
+    feed.blog = blog
+
+    //Test Insert
+    service.insertFeed(feed)
 }

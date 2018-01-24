@@ -21,7 +21,8 @@ data class Blog(
         var initUpdateDate: String = DateUtil.getCurrentDate(),
 
         @Column(nullable = false)
-        var lastUpdateDate: String = DateUtil.getCurrentDate()
+        var lastUpdateDate: String = DateUtil.getCurrentDate(),
 
-//        @OneToMany(fetch = )
+        @OneToMany(mappedBy = "blog")
+        var feedList: List<Feed>? = null
 )

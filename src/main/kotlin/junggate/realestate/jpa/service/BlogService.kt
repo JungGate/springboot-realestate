@@ -14,6 +14,8 @@ import java.util.*
 
 @Service
 class BlogService @Autowired constructor(private val blogRepository: BlogRepository){
+
+
     fun insertBlog(url:String){
         var blog= Blog()
         blog.url= url
