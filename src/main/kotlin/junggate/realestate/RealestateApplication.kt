@@ -1,13 +1,11 @@
 package junggate.realestate
 
-import junggate.realestate.jpa.model.Feed
-import junggate.realestate.jpa.repository.BlogRepository
+import junggate.realestate.jpa.model.Blog
+import junggate.realestate.jpa.service.RssService
 import junggate.realestate.jpa.service.BlogService
-import junggate.realestate.jpa.service.FeedService
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.context.ConfigurableApplicationContext
-import java.util.*
 
 @SpringBootApplication
 class RealestateApplication
@@ -15,17 +13,17 @@ class RealestateApplication
 fun main(args: Array<String>) {
     val context = SpringApplication.run(RealestateApplication::class.java, *args)
     test_blog(context)
-//    test_feed(context)
+    test_feed(context)
 }
 
 
 fun test_blog(context: ConfigurableApplicationContext) {
-    val service = context.getBean(BlogService::class.java)
+    val service = context.getBean(RssService::class.java)
 
     //Test Insert
-    service.insertBlog("https://rss.blog.naver.com/mltmkr.xml")
-    service.insertBlog("https://rss.blog.naver.com/ppassong.xml")
-    service.insertBlog("https://rss.blog.naver.com/dadaacademy.xml")
+    service.insertRssUrl("https://rss.blog.naver.com/mltmkr.xml")
+    service.insertRssUrl("https://rss.blog.naver.com/ppassong.xml")
+    service.insertRssUrl("https://rss.blog.naver.com/dadaacademy.xml")
 
     //Teet Update
 //    service.updateBlogCurrentTime("aaa")
@@ -33,15 +31,15 @@ fun test_blog(context: ConfigurableApplicationContext) {
 
 
 fun test_feed(context: ConfigurableApplicationContext) {
-    val serviceFeed = context.getBean(FeedService::class.java)
     val serviceBlog = context.getBean(BlogService::class.java)
-    val blog = serviceBlog.findByUrl("aaa").first()
+    val serviceRss= context.getBean(RssService::class.java)
+    val rss = serviceRss.findByUrl("https://rss.blog.naver.com/dadaacademy.xml").first()
 
-    var feed = Feed()
-    feed.author = "aut"
-    feed.category = "cat"
-    feed.blog = blog
+    var blog = Blog()
+    blog.author = "aut"
+    blog.category = "cat"
+    blog.rss = rss
 
     //Test Insert
-    serviceFeed.insertFeed(feed)
+    serviceBlog.insertFeed(blog)
 }
