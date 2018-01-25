@@ -1,8 +1,10 @@
 package junggate.realestate
 
 import junggate.realestate.jpa.model.Blog
+import junggate.realestate.jpa.model.Post
 import junggate.realestate.jpa.service.RssService
 import junggate.realestate.jpa.service.BlogService
+import junggate.realestate.jpa.service.PostService
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.context.ConfigurableApplicationContext
@@ -33,13 +35,24 @@ fun test_blog(context: ConfigurableApplicationContext) {
 fun test_feed(context: ConfigurableApplicationContext) {
     val serviceBlog = context.getBean(BlogService::class.java)
     val serviceRss= context.getBean(RssService::class.java)
+    val servicePost= context.getBean(PostService::class.java)
+
     val rss = serviceRss.findByUrl("https://rss.blog.naver.com/dadaacademy.xml").first()
 
-    var blog = Blog()
+    var blog = Blog(rss = rss)
     blog.author = "aut"
     blog.category = "cat"
-    blog.rss = rss
+
+
+    var post = Post(blog = blog)
+    post.author = "post"
+    post.link = "http://naver.com"
+
+    blog.post.add(post)
+    serviceBlog.insertBlog(blog)
+    servicePost.insertPost(post)
 
     //Test Insert
-    serviceBlog.insertFeed(blog)
+
+
 }
