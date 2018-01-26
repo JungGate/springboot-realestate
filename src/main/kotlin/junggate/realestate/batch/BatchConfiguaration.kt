@@ -6,6 +6,8 @@ import org.springframework.batch.core.configuration.annotation.EnableBatchProces
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory
 import org.springframework.batch.core.launch.support.RunIdIncrementer
+import org.springframework.batch.core.step.tasklet.Tasklet
+import org.springframework.batch.repeat.RepeatStatus
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -40,6 +42,10 @@ class BatchConfiguration{
 
     @Bean(name = arrayOf("step_rss"))
     fun step1(): Step {
+//        return steps.get("step_rss")
+//                .tasklet(Tasklet { stepContirubution, chunkContext ->
+//                    RepeatStatus.CONTINUABLE
+//                }).build()
         return steps.get("step_rss")
                 .chunk<String, String>(5)
                 .reader(reader)
