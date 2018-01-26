@@ -1,6 +1,6 @@
 package junggate.realestate.jpa.model
 
-import junggate.realestate.util.DateUtil
+import junggate.realestate.component.DateUtil
 import javax.persistence.*
 
 @Entity

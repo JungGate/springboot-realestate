@@ -2,12 +2,17 @@ package junggate.realestate.jpa.service
 
 import junggate.realestate.jpa.model.Rss
 import junggate.realestate.jpa.repository.RssRepository
-import junggate.realestate.util.DateUtil
+import junggate.realestate.component.DateUtil
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
 class RssService @Autowired constructor(private val rssRepository: RssRepository){
+    fun findAll(): MutableList<Rss>{
+        return rssRepository.findAll()
+    }
+
+
     fun findByUrl(url:String): MutableList<Rss>{
         return rssRepository.findByUrl(url)
     }

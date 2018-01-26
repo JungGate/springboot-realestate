@@ -1,4 +1,4 @@
-package junggate.realestate.util
+package junggate.realestate.component
 
 import org.springframework.stereotype.Component
 import java.text.SimpleDateFormat
