@@ -13,8 +13,11 @@ class ItemProcessor : ItemProcessor<String, SyndFeed> {
         println("[processor]$item")
 
         val feed = SyndFeedInput().build(XmlReader(URL(item)))
-        var resultString = "title:${feed.title}, author:${feed.author}"
-        println("[processor] $resultString")
+        feed.uri = item
+//        var resultString = "title:${feed.title}, author:${feed.author}"
+//        println("[processor] $resultString")
+
+//        println("[processor]${feed} \n\n")
 
         return feed
     }

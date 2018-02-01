@@ -14,8 +14,6 @@ class RealestateApplication
 
 fun main(args: Array<String>) {
     val context = SpringApplication.run(RealestateApplication::class.java, *args)
-    test_blog(context)
-    test_feed(context)
 }
 
 
@@ -45,7 +43,7 @@ fun test_feed(context: ConfigurableApplicationContext) {
 
 
     var post = Post(blog = blog)
-    post.author = "post"
+    post.author = "한글"
     post.link = "http://naver.com"
 
     blog.post.add(post)
