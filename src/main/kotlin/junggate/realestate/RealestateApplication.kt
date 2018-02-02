@@ -14,10 +14,12 @@ class RealestateApplication
 
 fun main(args: Array<String>) {
     val context = SpringApplication.run(RealestateApplication::class.java, *args)
+//    test_rss(context)
+//    test_feed(context)
 }
 
 
-fun test_blog(context: ConfigurableApplicationContext) {
+fun test_rss(context: ConfigurableApplicationContext) {
     val service = context.getBean(RssService::class.java)
 
     //Test Insert

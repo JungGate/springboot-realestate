@@ -12,7 +12,6 @@ class RssService @Autowired constructor(private val rssRepository: RssRepository
         return rssRepository.findAll()
     }
 
-
     fun findByUrl(url:String): MutableList<Rss>{
         return rssRepository.findByUrl(url)
     }
