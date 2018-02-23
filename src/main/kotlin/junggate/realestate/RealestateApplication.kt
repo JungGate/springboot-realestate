@@ -1,5 +1,6 @@
 package junggate.realestate
 
+import com.rometools.rome.io.WireFeedInput
 import junggate.realestate.jpa.model.Blog
 import junggate.realestate.jpa.model.Post
 import junggate.realestate.jpa.service.RssService
@@ -8,6 +9,7 @@ import junggate.realestate.jpa.service.PostService
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.context.ConfigurableApplicationContext
+import java.io.File
 
 @SpringBootApplication
 class RealestateApplication
