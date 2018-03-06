@@ -1,13 +1,23 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
-  </div>
+  <v-app dark>
+  <SideBar></SideBar>
+  <v-toolbar app></v-toolbar>
+  <v-content>
+    <v-container fluid>
+      <router-view></router-view>
+    </v-container>
+  </v-content>
+  <!-- <v-footer app></v-footer> -->
+</v-app>
 </template>
 
 <script>
-export default {
-  name: 'App'
+import SideBar from './components/SideBar.vue'
+
+export default{
+  components: {
+    SideBar
+  }
 }
 </script>
 
