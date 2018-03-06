@@ -1,5 +1,6 @@
 <template>
   <v-app dark>
+  <HeaderView></HeaderView>
   <SideBar></SideBar>
   <v-toolbar app></v-toolbar>
   <v-content>
@@ -12,11 +13,13 @@
 </template>
 
 <script>
+import HeaderView from './components/HeaderView.vue'
 import SideBar from './components/SideBar.vue'
 
 export default{
   components: {
-    SideBar
+    SideBar,
+    HeaderView
   }
 }
 </script>

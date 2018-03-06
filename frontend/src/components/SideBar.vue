@@ -2,37 +2,46 @@
   <v-navigation-drawer
       clipped
       fixed
-      v-model="drawer"
       app
     >
       <v-list dense>
-        <v-list-tile @click="say('hi')">
+        <v-list-tile v-for="menu in menus" v-on:click="say(menu.value)">
           <v-list-tile-action>
             <v-icon>dashboard</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>Dashboard</v-list-tile-title>
+            <v-list-tile-title>{{ menu.title }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-        <v-list-tile @click="say('hi')">
-          <v-list-tile-action>
-            <v-icon>settings</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>Settings</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
+
       </v-list>
-          </v-navigation-drawer>
-    <!-- <v-toolbar app fixed clipped-left>
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-toolbar-title>Application</v-toolbar-title>
-    </v-toolbar> -->
+    </v-navigation-drawer>
 </template>
 
 <script>
 export default {
   name: 'SideBar',
+  data () {
+    return {
+      menus: [
+        {
+          title: 'RSS 리스트 조회',
+          value: 1
+        },
+        {
+          title: 'Blog 리스트 조회',
+          value: 2
+        },
+        {
+          title: 'Post 리스트 조회',
+          value: 3
+        }
+      ]
+    }
+  },
+  props: {
+    source: String
+  },
   methods: {
     say (message) {
       alert(message)
