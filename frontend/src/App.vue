@@ -1,10 +1,13 @@
 <template>
   <v-app dark>
   <HeaderView></HeaderView>
-  <SideBar></SideBar>
+  <SideBar
+  :parentData="parentData"
+  @selectMenu="selectMenu"></SideBar>
   <v-toolbar app></v-toolbar>
   <v-content>
     <v-container fluid>
+      <h1>{{ name }}</h1>
       <router-view></router-view>
     </v-container>
   </v-content>
@@ -20,8 +23,24 @@ export default{
   components: {
     SideBar,
     HeaderView
+  },
+  data () {
+    return {
+      name: 'nnnaaammee',
+      parentData: 'init data!'
+    }
+  },
+  methods: {
+    selectMenu (event) {
+      console.log('data after child handle: ', event) // get the data after child dealing
+    }
   }
 }
+
+// Vue.components('bus', {
+
+// })
+
 </script>
 
 <style>
