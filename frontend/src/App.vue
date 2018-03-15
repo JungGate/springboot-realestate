@@ -7,8 +7,11 @@
   <v-toolbar app></v-toolbar>
   <v-content>
     <v-container fluid>
-      <h1>{{ name }}</h1>
-      <router-view></router-view>
+      <transition name="fade" mode="out-in">
+        <keep-alive>
+          <component :is="contentView"></component>
+        </keep-alive>
+      </transition>
     </v-container>
   </v-content>
   <!-- <v-footer app></v-footer> -->
@@ -16,8 +19,12 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import HeaderView from './components/HeaderView.vue'
 import SideBar from './components/SideBar.vue'
+import RssView from './view/RssView'
+import BlogView from './view/BlogView'
+import PostView from './view/PostView'
 
 export default{
   components: {
@@ -26,20 +33,43 @@ export default{
   },
   data () {
     return {
-      name: 'nnnaaammee',
-      parentData: 'init data!'
+      parentData: 'init data',
+      contentView: 'rss-view'
     }
   },
   methods: {
     selectMenu (event) {
-      console.log('data after child handle: ', event) // get the data after child dealing
+      if (event === 'menu_rss') {
+        this.contentView = 'rss-view'
+      } else if (event === 'menu_blog') {
+        this.contentView = 'blog-view'
+      } else if (event === 'menu_post') {
+        this.contentView = 'post-view'
+      }
     }
   }
 }
 
-// Vue.components('bus', {
+Vue.component('rss-view', {
+  components: {
+    RssView
+  },
+  template: '<RssView></RssView>'
+})
 
-// })
+Vue.component('blog-view', {
+  components: {
+    BlogView
+  },
+  template: '<BlogView></BlogView>'
+})
+
+Vue.component('post-view', {
+  components: {
+    PostView
+  },
+  template: '<PostView></PostView>'
+})
 
 </script>
 
