@@ -10,7 +10,9 @@
     >
       <template slot="items" slot-scope="props">
         <td>{{ props.item.id }}</td>
-        <td class="text-xs-left">{{ props.item.url }}</td>
+        <td class="text-xs-left">
+          <a v-bind:href='props.item.url' target="_blank"> {{ props.item.url }} </a>
+        </td>
         <td>{{ props.item.initUpdateDate }}</td>
         <td>{{ props.item.lastUpdateDate }}</td>
       </template>
@@ -20,7 +22,7 @@
 
 <script>
 export default {
-  name: 'BlogView',
+  name: 'RssView',
   data () {
     return {
       headers: [
@@ -51,6 +53,10 @@ export default {
 <style scoped>
 h1, h2 {
   font-weight: normal;
+  color: #42b983;
+}
+a {
+  font-weight: bold;
   color: #42b983;
 }
 </style>

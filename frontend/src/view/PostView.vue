@@ -10,9 +10,13 @@
     >
       <template slot="items" slot-scope="props">
         <td>{{ props.item.id }}</td>
-        <td class="text-xs-left">{{ props.item.url }}</td>
-        <td>{{ props.item.initUpdateDate }}</td>
-        <td>{{ props.item.lastUpdateDate }}</td>
+        <td class="text-xs-left">{{ props.item.author }}</td>
+        <td class="text-xs-left">{{ props.item.blog.title }}</td>
+        <td class="text-xs-left">{{ props.item.title }}</td>
+        <!-- <td class="text-xs-left">{{ props.item.link }}</td> -->
+        <td class="text-xs-left">
+          <a v-bind:href='props.item.link' target="_blank"> 보기 </a>
+        </td>
       </template>
     </v-data-table>
   </div>
@@ -20,14 +24,15 @@
 
 <script>
 export default {
-  name: 'BlogView',
+  name: 'PostView',
   data () {
     return {
       headers: [
-        { align: 'center', sortable: false, text: 'id', value: 'id' },
-        { align: 'center', sortable: false, text: 'Blog URL', value: 'url' },
-        { align: 'center', sortable: false, text: 'Create Date', value: 'initUpdateDate' },
-        { align: 'center', sortable: false, text: 'Update Date', value: 'lastUpdateDate' }
+        { align: 'center', sortable: false, text: 'id', value: '' },
+        { align: 'center', sortable: false, text: 'Author', value: '' },
+        { align: 'center', sortable: false, text: 'Blog Title', value: '' },
+        { align: 'center', sortable: false, text: 'Post Title', value: '' },
+        { align: 'center', sortable: false, text: 'Link', value: '' }
       ],
       items: []
     }
@@ -51,6 +56,10 @@ export default {
 <style scoped>
 h1, h2 {
   font-weight: normal;
+  color: #42b983;
+}
+a {
+  font-weight: bold;
   color: #42b983;
 }
 </style>
