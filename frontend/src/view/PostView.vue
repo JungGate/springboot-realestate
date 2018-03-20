@@ -29,14 +29,7 @@ export default {
         { align: 'center', sortable: false, text: 'Create Date', value: 'initUpdateDate' },
         { align: 'center', sortable: false, text: 'Update Date', value: 'lastUpdateDate' }
       ],
-      items: [
-        {
-          'id': 1,
-          'url': 'https://rss.blog.naver.com/mltmkr.xml',
-          'initUpdateDate': '2018-03-20 13:33:08.008',
-          'lastUpdateDate': null
-        }
-      ]
+      items: []
     }
   },
   activated () {
