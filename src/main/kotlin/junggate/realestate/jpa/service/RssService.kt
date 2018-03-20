@@ -5,6 +5,7 @@ import junggate.realestate.jpa.repository.RssRepository
 import junggate.realestate.component.DateUtil
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import java.util.*
 
 @Service
 class RssService @Autowired constructor(private val rssRepository: RssRepository){
@@ -12,13 +13,13 @@ class RssService @Autowired constructor(private val rssRepository: RssRepository
         return rssRepository.findAll()
     }
 
-
     fun findByUrl(url:String): MutableList<Rss>{
         return rssRepository.findByUrl(url)
     }
 
     fun insertRssUrl(url:String){
         var rss = Rss()
+        rss.initUpdateDate = DateUtil.getCurrentDate()
         rss.url= url
         rssRepository.save(rss)
     }

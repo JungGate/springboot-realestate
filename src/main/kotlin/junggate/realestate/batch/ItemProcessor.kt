@@ -1,5 +1,6 @@
 package junggate.realestate.batch
 
+import com.rometools.rome.feed.synd.SyndFeed
 import com.rometools.rome.io.SyndFeedInput
 import com.rometools.rome.io.XmlReader
 import org.springframework.stereotype.Component
@@ -7,17 +8,17 @@ import org.springframework.batch.item.ItemProcessor
 import java.net.URL
 
 @Component
-open class ItemProcessor:ItemProcessor<String, String>{
-    override fun process(item:String):String{
+class ItemProcessor : ItemProcessor<String, SyndFeed> {
+    override fun process(item:String): SyndFeed?{
         println("[processor]$item")
 
-        val url = "http://blog.rss.naver.com/iles1026.xml"
-        val feed = SyndFeedInput().build(XmlReader(URL(url)))
+        val feed = SyndFeedInput().build(XmlReader(URL(item)))
+        feed.uri = item
+//        var resultString = "title:${feed.title}, author:${feed.author}"
+//        println("[processor] $resultString")
 
-        var resultString = "title:${feed.title}, author:${feed.author}"
+//        println("[processor]${feed} \n\n")
 
-        println("[processor] $resultString")
-
-        return item
+        return feed
     }
 }

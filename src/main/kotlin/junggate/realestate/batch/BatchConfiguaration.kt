@@ -1,5 +1,6 @@
 package junggate.realestate.batch
 
+import com.rometools.rome.feed.synd.SyndFeed
 import org.springframework.batch.core.Job
 import org.springframework.batch.core.Step
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing
@@ -40,8 +41,12 @@ class BatchConfiguration{
 
     @Bean(name = arrayOf("step_rss"))
     fun step1(): Step {
+//        return steps.get("step_rss")
+//                .tasklet(Tasklet { stepContirubution, chunkContext ->
+//                    RepeatStatus.CONTINUABLE
+//                }).build()
         return steps.get("step_rss")
-                .chunk<String, String>(5)
+                .chunk<String, SyndFeed>(5)
                 .reader(reader)
                 .processor(processor)
                 .writer(writer)

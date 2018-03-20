@@ -28,7 +28,7 @@ data class Post(
         @Column(nullable = false)
         var guid: String = "",
 
-        @Column(nullable = false)
+        @Column(nullable = false, length = 1024)
         var description: String = "",
 
         @Column

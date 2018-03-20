@@ -1,5 +1,6 @@
 package junggate.realestate
 
+import com.rometools.rome.io.WireFeedInput
 import junggate.realestate.jpa.model.Blog
 import junggate.realestate.jpa.model.Post
 import junggate.realestate.jpa.service.RssService
@@ -8,18 +9,19 @@ import junggate.realestate.jpa.service.PostService
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.context.ConfigurableApplicationContext
+import java.io.File
 
 @SpringBootApplication
 class RealestateApplication
 
 fun main(args: Array<String>) {
     val context = SpringApplication.run(RealestateApplication::class.java, *args)
-    test_blog(context)
-    test_feed(context)
+//    test_rss(context)
+//    test_feed(context)
 }
 
 
-fun test_blog(context: ConfigurableApplicationContext) {
+fun test_rss(context: ConfigurableApplicationContext) {
     val service = context.getBean(RssService::class.java)
 
     //Test Insert
@@ -45,7 +47,7 @@ fun test_feed(context: ConfigurableApplicationContext) {
 
 
     var post = Post(blog = blog)
-    post.author = "post"
+    post.author = "한글"
     post.link = "http://naver.com"
 
     blog.post.add(post)

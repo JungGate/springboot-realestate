@@ -24,7 +24,6 @@ class ItemReader(@Autowired private var rssService: RssService) :ItemReader<Stri
 
         index++
 
-
         return rss.url
     }
 }

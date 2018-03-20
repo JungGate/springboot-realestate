@@ -15,5 +15,4 @@ class RssComponent{
             return feed
         }
     }
-
 }
