@@ -2,6 +2,7 @@ package junggate.realestate.controller
 
 import com.mitchellbosecke.pebble.PebbleEngine
 import junggate.realestate.component.RssComponent
+import junggate.realestate.jpa.model.Rss
 import junggate.realestate.jpa.service.RssService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
@@ -40,6 +41,13 @@ class RssController{
 
         print("output : ${output}")
         return output
+    }
+
+    @RequestMapping("/rss/data")
+    @ResponseBody
+    fun select_rss() : List<Rss>{
+        val list = rssService.findAll()
+        return list
     }
 
 }
