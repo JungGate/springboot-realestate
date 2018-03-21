@@ -34,8 +34,8 @@ data class Blog(
         @Column(nullable = true)
         var pubDate: Date? = null,
 
-        @Column(nullable = true)
-        var tag: String? = null,
+//        @Column(nullable = true)
+//        var tag: String? = null,
 
         @OneToOne
         @JsonBackReference

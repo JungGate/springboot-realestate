@@ -28,8 +28,8 @@ export default {
       headers: [
         { align: 'center', sortable: false, text: 'id', value: 'id' },
         { align: 'center', sortable: false, text: 'Blog URL', value: 'url' },
-        { align: 'center', sortable: false, text: 'Create Date', value: 'initUpdateDate' },
-        { align: 'center', sortable: false, text: 'Update Date', value: 'lastUpdateDate' }
+        { align: 'center', sortable: false, text: 'Create Date', value: 'subscribeDate' },
+        { align: 'center', sortable: false, text: 'Update Date', value: 'updateDate' }
       ],
       items: []
     }

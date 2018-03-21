@@ -27,7 +27,7 @@ class RssService @Autowired constructor(private val rssRepository: RssRepository
         rssRepository.save(rss)
     }
     fun updateBlogCurrentTime(url:String) {
-        rssRepository.updateLastUpdateDate(url, DateUtil.getCurrentDate())
+        rssRepository.updateDate(url, DateUtil.getCurrentDate())
     }
 
 

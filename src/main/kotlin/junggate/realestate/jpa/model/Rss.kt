@@ -18,5 +18,5 @@ data class Rss(
         var subscribeDate: Date = Date(),
 
         @Column(nullable = false)
-        var updateCheckDate: Date = Date()
+        var updateDate: Date = Date()
 )

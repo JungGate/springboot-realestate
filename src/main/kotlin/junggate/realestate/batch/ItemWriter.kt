@@ -43,7 +43,6 @@ class ItemWriter:ItemWriter<SyndFeed>{
             blog.link = syndFeed.link
             blog.pubDate = syndFeed.publishedDate
             blog.description = syndFeed.description
-            blog.tag = syndFeed.docs
             serviceBlog.insertBlog(blog)
 
             syndFeed.entries.forEach { syndEntry ->

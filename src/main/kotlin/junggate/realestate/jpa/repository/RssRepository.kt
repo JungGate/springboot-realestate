@@ -16,8 +16,8 @@ interface RssRepository : JpaRepository<Rss, Int> {
 
     @Transactional
     @Modifying
-    @Query("UPDATE Rss AS r SET r.updateCheckDate = :updateCheckDate WHERE r.url = :url")
-    fun updateLastUpdateDate(@Param("url") url: String,
-                             @Param("updateCheckDate") updateDate: String) : Int
+    @Query("UPDATE Rss AS r SET r.updateDate = :updateDate WHERE r.url = :url")
+    fun updateDate(@Param("url") url: String,
+                             @Param("updateDate") updateDate: String) : Int
 
 }
