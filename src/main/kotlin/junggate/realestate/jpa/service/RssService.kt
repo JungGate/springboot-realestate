@@ -19,7 +19,6 @@ class RssService @Autowired constructor(private val rssRepository: RssRepository
 
     fun insertRssUrl(url:String){
         var rss = Rss()
-        rss.initUpdateDate = DateUtil.getCurrentDate()
         rss.url= url
         rssRepository.save(rss)
     }

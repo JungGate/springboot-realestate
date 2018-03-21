@@ -21,27 +21,25 @@ class RssController{
     @Autowired
     private lateinit var rssService: RssService
 
-    @GetMapping("/rss")
-    @ResponseBody
-    fun index() : String {
-        val compiledTemplate = engin.getTemplate("templates/rss.html")
-        val writer = StringWriter()
-
-        val list = rssService.findAll()
-
-        val context = HashMap<String, Any>()
-
-        print("initUpdateDate ${list.first().initUpdateDate}")
-
-        context.put("list_count", list.count())
-        context.put("list", list.map { hashMapOf("init_date" to it.initUpdateDate, "url" to it.url) })
-        compiledTemplate.evaluate(writer, context )
-
-        val output = writer.toString()
-
-        print("output : ${output}")
-        return output
-    }
+//    @GetMapping("/rss")
+//    @ResponseBody
+//    fun index() : String {
+//        val compiledTemplate = engin.getTemplate("templates/rss.html")
+//        val writer = StringWriter()
+//
+//        val list = rssService.findAll()
+//
+//        val context = HashMap<String, Any>()
+//
+//        context.put("list_count", list.count())
+//        context.put("list", list.map { hashMapOf("init_date" to it.initUpdateDate, "url" to it.url) })
+//        compiledTemplate.evaluate(writer, context )
+//
+//        val output = writer.toString()
+//
+//        print("output : ${output}")
+//        return output
+//    }
 
     @RequestMapping("/rss/data")
     @ResponseBody

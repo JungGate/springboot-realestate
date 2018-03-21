@@ -11,5 +11,11 @@ class DateUtil{
             var dateformat = SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z")
             return dateformat.format(Date())
         }
+
+        fun getDateString(interval:Long) : String{
+            val date = Date(interval)
+            var dateformat = SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss")
+            return dateformat.format(date)
+        }
     }
 }

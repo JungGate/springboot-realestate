@@ -22,6 +22,10 @@ class ItemWriter:ItemWriter<SyndFeed>{
     @Autowired
     private lateinit var serviceRss: RssService
 
+    constructor(servicePost: PostService) {
+        this.servicePost = servicePost
+    }
+
     override fun write(items:MutableList<out SyndFeed>?){
         if (items == null)
             return
@@ -33,24 +37,26 @@ class ItemWriter:ItemWriter<SyndFeed>{
             val rss = serviceRss.findByUrl(syndFeed.uri).first()
 
             var blog = Blog(rss = rss)
-//            blog.author = syndFeed.author
-//            blog.category = syndFeed.categories.first()
+            blog.author = syndFeed.author
+            blog.category = syndFeed.categories.map { it.name }.toString()
             blog.title = syndFeed.title
+            blog.link = syndFeed.link
+            blog.pubDate = syndFeed.publishedDate
             blog.description = syndFeed.description
+            blog.tag = syndFeed.docs
             serviceBlog.insertBlog(blog)
 
-            syndFeed.entries.forEach { syndEntry: SyndEntry? ->
-                if (syndEntry != null) {
-                    var post = Post(blog = blog)
-                    post.author = syndEntry.author
-                    post.link = syndEntry.link
-//                    post.description = syndEntry.description
-                    post.title = syndEntry.title
+            syndFeed.entries.forEach { syndEntry ->
+                var post = Post(blog = blog)
+                post.author = syndEntry.author
+                post.category = syndEntry.categories.map { it.name }.toString()
+                post.title = syndEntry.title
+                post.link = syndEntry.link
+                post.description = syndEntry.description.toString()
+                post.pubDate = syndEntry.publishedDate
+                blog.post.add(post)
 
-//                    blog.post.add(post)
-
-                    servicePost.insertPost(post)
-                }
+                servicePost.insertPost(post)
             }
         }
     }

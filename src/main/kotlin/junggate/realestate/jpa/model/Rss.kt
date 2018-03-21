@@ -1,6 +1,7 @@
 package junggate.realestate.jpa.model
 
 import junggate.realestate.component.DateUtil
+import java.util.*
 import javax.persistence.*
 
 @Entity
@@ -14,8 +15,8 @@ data class Rss(
         var url: String = "",
 
         @Column(nullable = false)
-        var initUpdateDate: String = DateUtil.getCurrentDate(),
+        var subscribeDate: Date = Date(),
 
         @Column(nullable = false)
-        var lastUpdateDate: String = ""
+        var updateCheckDate: Date = Date()
 )

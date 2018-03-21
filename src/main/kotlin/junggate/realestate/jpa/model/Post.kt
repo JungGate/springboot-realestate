@@ -1,7 +1,9 @@
 package junggate.realestate.jpa.model
 
+import com.fasterxml.jackson.annotation.JsonBackReference
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
+import java.util.*
 import javax.persistence.*
 
 
@@ -25,17 +27,17 @@ data class Post(
         @Column(nullable = false)
         var link: String = "",
 
-        @Column(nullable = false)
-        var guid: String = "",
+//        @Column(nullable = false)
+//        var guid: String = "",
 
         @Column(nullable = false, length = 1024)
         var description: String = "",
 
         @Column
-        var pubDate: String = "", // SimpleDateFormat //"EEE, d MMM yyyy HH:mm:ss Z"    Wed, 4 Jul 2001 12:08:56 -0700
+        var pubDate: Date? = null,
 
-        @Column(nullable = false)
-        var tag: String = "",
+//        @Column(nullable = true) // ROME에 값이 없어 ㅠㅠ
+//        var tag: String? = null,
 
         @ManyToOne(cascade = arrayOf(CascadeType.ALL))
         var blog: Blog? = null
