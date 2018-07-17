@@ -7,10 +7,7 @@ import junggate.realestate.jpa.service.RssService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestMethod
-import org.springframework.web.bind.annotation.ResponseBody
+import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.ModelAndView
 import java.io.StringWriter
 
@@ -46,6 +43,14 @@ class RssController{
     fun select_rss() : List<Rss>{
         val list = rssService.findAll()
         return list
+    }
+
+    @PostMapping(value = "rss/insert")
+    @ResponseBody
+    fun insert_rss(@RequestParam("address") address:String) : String{
+        rssService.insertRssUrl(address)
+        println("address: $address")
+        return "{ result : success }"
     }
 
 }
