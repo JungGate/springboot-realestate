@@ -25,7 +25,7 @@ export default {
     return {
       menus: [
         {
-          title: 'RSS 리스트 조회',
+          title: 'Rss 리스트 조회',
           id: 'menu_rss'
         },
         {
