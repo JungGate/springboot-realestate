@@ -1,6 +1,13 @@
 <template>
   <div class="hello">
     <h1>RssView</h1>
+     <v-alert
+      :value="alert"
+      type="success"
+      transition="scale-transition"
+    >
+      RSS 추가 성공.
+    </v-alert>
     <br>
       <v-text-field
         name="input"
@@ -39,7 +46,8 @@ export default {
         { align: 'center', sortable: false, text: 'Update Date', value: 'updateDate' }
       ],
       items: [],
-      rssAddress: ''
+      rssAddress: '',
+      alert: false
     }
   },
   activated () {
@@ -70,6 +78,17 @@ export default {
           .then((result) => {
             console.log(result)
             this.loadData()
+            this.rssAddress = ''
+            this.alert = true
+
+            var timerId = setInterval(
+              (function (self) {
+                return function () {
+                  console.log('Interval ' + self.alert)
+                  self.alert = false
+                  clearInterval(timerId)
+                }
+              })(this), 3000)
           })
       }
     }
