@@ -2,6 +2,13 @@
   <div class="hello">
     <h1>RssView</h1>
     <br>
+      <v-text-field
+        name="input"
+        label="Rss Address"
+        id=""
+        v-model="rssAddress"
+        v-on:keyup="insertRss"
+        ></v-text-field>
     <v-data-table
       :headers="headers"
       :items="items"
@@ -31,7 +38,8 @@ export default {
         { align: 'center', sortable: false, text: 'Create Date', value: 'subscribeDate' },
         { align: 'center', sortable: false, text: 'Update Date', value: 'updateDate' }
       ],
-      items: []
+      items: [],
+      rssAddress: ''
     }
   },
   activated () {
@@ -44,6 +52,26 @@ export default {
           console.log(result)
           this.items = result.data
         })
+    },
+    insertRss: function (e) {
+      if (e.code === 'Enter') {
+        console.log('this.rssAddress: ' + this.rssAddress)
+        var url = (`${this.$baseURI}/rss/insert`)
+        console.log(url)
+
+        const data = new FormData()
+        data.append('address', `${this.rssAddress}`)
+
+        this.$http({
+          method: 'post',
+          url: url,
+          data: data
+        })
+          .then((result) => {
+            console.log(result)
+            this.loadData()
+          })
+      }
     }
   }
 }
