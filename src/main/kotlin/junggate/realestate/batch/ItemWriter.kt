@@ -31,9 +31,6 @@ class ItemWriter:ItemWriter<SyndFeed>{
             return
 
         items.forEach { syndFeed: SyndFeed ->
-            println("[writer]${syndFeed.title}")
-            println("[writer]${syndFeed.uri}")
-
             val rss = serviceRss.findByUrl(syndFeed.uri).first()
 
             var blog = Blog(rss = rss)
@@ -54,6 +51,10 @@ class ItemWriter:ItemWriter<SyndFeed>{
                 post.description = syndEntry.description.toString()
                 post.pubDate = syndEntry.publishedDate
                 blog.post.add(post)
+
+                println("[writer]${post.title}")
+                println("[writer]${post.author}")
+                println("[writer]\n")
 
                 servicePost.insertPost(post)
             }

@@ -49,8 +49,8 @@ class RssController{
     @ResponseBody
     fun insert_rss(@RequestParam("address") address:String) : String{
         rssService.insertRssUrl(address)
-        println("address: $address")
-        return "{ result : success }"
+        println("rss/insert address: $address")
+        return "{ \"result\" : \"success\" }"
     }
 
 }

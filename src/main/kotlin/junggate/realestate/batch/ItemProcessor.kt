@@ -11,14 +11,8 @@ import java.net.URL
 class ItemProcessor : ItemProcessor<String, SyndFeed> {
     override fun process(item:String): SyndFeed?{
         println("[processor]$item")
-
         val feed = SyndFeedInput().build(XmlReader(URL(item)))
         feed.uri = item
-//        var resultString = "title:${feed.title}, author:${feed.author}"
-//        println("[processor] $resultString")
-
-//        println("[processor]${feed} \n\n")
-
         return feed
     }
 }

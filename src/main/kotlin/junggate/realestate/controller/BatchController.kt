@@ -12,26 +12,24 @@ import java.util.*
 
 @RestController
 class BatchController{
-    @Autowired
-    lateinit var jobRepository: JobRepository
-
-    @Autowired
-    lateinit var jobLauncher: JobLauncher
-
-    @Autowired
-    lateinit var job: Job
-
-    @RequestMapping("startbatch")
-    fun startBatch() : String{
-        var jobParameterBuilder = JobParametersBuilder()
-        jobParameterBuilder.addDate("date", Date())
-
-        var jobExecution = jobLauncher.run(job, jobParameterBuilder.toJobParameters() )
-        jobRepository.update(jobExecution)
-
-        val resultString = "{\"result\":\"launched\"}"
-        return resultString
-    }
-
-
+//    @Autowired
+//    lateinit var jobRepository: JobRepository
+//
+//    @Autowired
+//    lateinit var jobLauncher: JobLauncher
+//
+//    @Autowired
+//    lateinit var job: Job
+//
+//    @RequestMapping("startbatch")
+//    fun startBatch() : String{
+//        var jobParameterBuilder = JobParametersBuilder()
+//        jobParameterBuilder.addDate("date", Date())
+//
+//        var jobExecution = jobLauncher.run(job, jobParameterBuilder.toJobParameters() )
+//        jobRepository.update(jobExecution)
+//
+//        val resultString = "{\"result\":\"launched\"}"
+//        return resultString
+//    }
 }
