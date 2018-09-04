@@ -46,20 +46,23 @@ class ItemWriter:ItemWriter<SyndFeed>{
             }
 
             syndFeed.entries.forEach { syndEntry ->
-                var post = Post(blog = blog)
-                post.author = syndEntry.author
-                post.category = syndEntry.categories.map { it.name }.toString()
-                post.title = syndEntry.title
-                post.link = syndEntry.link
-                post.description = syndEntry.description.toString()
-                post.pubDate = syndEntry.publishedDate
-                blog.post.add(post)
+                var post:Post? = servicePost.find(syndEntry.link)
+                if (post == null){
+                    post = Post(blog = blog)
+                    post.author = syndEntry.author
+                    post.category = syndEntry.categories.map { it.name }.toString()
+                    post.title = syndEntry.title
+                    post.link = syndEntry.link
+                    post.description = syndEntry.description.toString()
+                    post.pubDate = syndEntry.publishedDate
+                    blog.post.add(post)
 
-                println("[writer]${post.title}")
-                println("[writer]${post.author}")
-                println("[writer]\n")
+                    println("[writer]${post.title}")
+                    println("[writer]${post.author}")
+                    println("[writer]\n")
 
-                servicePost.insertPost(post)
+                    servicePost.insertPost(post)
+                }
             }
         }
     }

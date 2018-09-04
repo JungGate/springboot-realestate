@@ -18,4 +18,9 @@ class PostService@Autowired constructor(private val postRepository: PostReposito
         postRepository.save(post)
     }
 
+    fun find(link:String): Post?{
+        val result = postRepository.findAll().filter { it.link == link }
+        return if (result.count() > 0) result.first() else null
+    }
+
 }
