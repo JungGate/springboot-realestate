@@ -33,14 +33,17 @@ class ItemWriter:ItemWriter<SyndFeed>{
         items.forEach { syndFeed: SyndFeed ->
             val rss = serviceRss.findByUrl(syndFeed.uri).first()
 
-            var blog = Blog(rss = rss)
-            blog.author = syndFeed.author
-            blog.category = syndFeed.categories.map { it.name }.toString()
-            blog.title = syndFeed.title
-            blog.link = syndFeed.link
-            blog.pubDate = syndFeed.publishedDate
-            blog.description = syndFeed.description
-            serviceBlog.insertBlog(blog)
+            var blog:Blog? = serviceBlog.find(syndFeed.link)
+            if (blog == null) {
+                blog = Blog(rss = rss)
+                blog.author = syndFeed.author
+                blog.category = syndFeed.categories.map { it.name }.toString()
+                blog.title = syndFeed.title
+                blog.link = syndFeed.link
+                blog.pubDate = syndFeed.publishedDate
+                blog.description = syndFeed.description
+                serviceBlog.insertBlog(blog)
+            }
 
             syndFeed.entries.forEach { syndEntry ->
                 var post = Post(blog = blog)

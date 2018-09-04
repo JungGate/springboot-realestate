@@ -15,4 +15,9 @@ class BlogService @Autowired constructor(private val blogRepository: BlogReposit
     fun insertBlog(blog: Blog){
         blogRepository.save(blog)
     }
+
+    fun find(link:String): Blog?{
+        val result = blogRepository.findAll().filter { it.link == link }
+        return if (result.count() > 0) result.first() else null
+    }
 }
