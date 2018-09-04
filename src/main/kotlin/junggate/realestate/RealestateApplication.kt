@@ -48,7 +48,7 @@ fun test_feed(context: ConfigurableApplicationContext) {
 
 
     var post = Post(blog = blog)
-    post.author = "한글"
+//    post.author = "한글"
     post.link = "http://naver.com"
 
     blog.post.add(post)

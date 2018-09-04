@@ -23,7 +23,8 @@ CREATE TABLE `blog` (
   `title` varchar(255) NOT NULL,
   `rss_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (rss_id) REFERENCES rss(id)
+  FOREIGN KEY (rss_id) REFERENCES rss(id),
+  UNIQUE INDEX(`link`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `post` (
@@ -38,5 +39,6 @@ CREATE TABLE `post` (
   `title` varchar(255) NOT NULL,
   `blog_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (blog_id) REFERENCES blog(id)
+  FOREIGN KEY (blog_id) REFERENCES blog(id),
+  UNIQUE INDEX(`link`)
 ) ENGINE=InnoDB AUTO_INCREMENT=452 DEFAULT CHARSET=utf8;

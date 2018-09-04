@@ -15,8 +15,8 @@ data class Post(
         @GeneratedValue
         var id:Int? = 0,
 
-        @Column(nullable = false)
-        var author: String = "",
+//        @Column(nullable = false)
+//        var author: String = "",
 
         @Column(nullable = false)
         var category: String = "",

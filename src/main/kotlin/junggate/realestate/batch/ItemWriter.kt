@@ -33,36 +33,33 @@ class ItemWriter:ItemWriter<SyndFeed>{
         items.forEach { syndFeed: SyndFeed ->
             val rss = serviceRss.findByUrl(syndFeed.uri).first()
 
-            var blog:Blog? = serviceBlog.find(syndFeed.link)
-            if (blog == null) {
-                blog = Blog(rss = rss)
-                blog.author = syndFeed.author
-                blog.category = syndFeed.categories.map { it.name }.toString()
-                blog.title = syndFeed.title
-                blog.link = syndFeed.link
-                blog.pubDate = syndFeed.publishedDate
-                blog.description = syndFeed.description
-                serviceBlog.insertBlog(blog)
-            }
+            var blog = Blog(rss = rss)
+            blog.author = syndFeed.author
+            blog.category = syndFeed.categories.map { it.name }.toString()
+            blog.title = syndFeed.title
+            blog.link = syndFeed.link
+            blog.pubDate = syndFeed.publishedDate
+            blog.description = syndFeed.description
+            serviceBlog.insertBlog(blog)
 
             syndFeed.entries.forEach { syndEntry ->
-                var post:Post? = servicePost.find(syndEntry.link)
-                if (post == null){
-                    post = Post(blog = blog)
-                    post.author = syndEntry.author
-                    post.category = syndEntry.categories.map { it.name }.toString()
-                    post.title = syndEntry.title
-                    post.link = syndEntry.link
-                    post.description = syndEntry.description.toString()
-                    post.pubDate = syndEntry.publishedDate
-                    blog.post.add(post)
-
-                    println("[writer]${post.title}")
-                    println("[writer]${post.author}")
-                    println("[writer]\n")
-
-                    servicePost.insertPost(post)
+                var post = Post(blog = blog)
+                post.category = syndEntry.categories.map{
+                    it.name
+                }.reduce { result, s ->
+                    result + ", " + s
                 }
+                post.title = syndEntry.title
+                post.link = syndEntry.link
+                val syndContent = syndEntry.description
+                post.description = syndContent.value
+                post.pubDate = syndEntry.publishedDate
+                blog.post.add(post)
+
+                println("[writer]${post.title}")
+                println("[writer]\n")
+
+                servicePost.insertPost(post)
             }
         }
     }
