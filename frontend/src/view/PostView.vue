@@ -10,10 +10,9 @@
     >
       <template slot="items" slot-scope="props">
         <td>{{ props.item.id }}</td>
-        <td class="text-xs-left">{{ props.item.author }}</td>
         <td class="text-xs-left">{{ props.item.blog.title }}</td>
         <td class="text-xs-left">{{ props.item.title }}</td>
-        <!-- <td class="text-xs-left">{{ props.item.link }}</td> -->
+        <td class="text-xs-left">{{ props.item.pubDate }}</td>
         <td class="text-xs-left">
           <a v-bind:href='props.item.link' target="_blank"> 보기 </a>
         </td>
@@ -42,10 +41,10 @@ export default {
   },
   methods: {
     loadData: function () {
-      this.$http.get(`${this.$baseURI}/post/data`)
+      this.$http.get(`${this.$baseURI}/post/data?page=0&size=10&sort=pubDate,desc`)
         .then((result) => {
-          console.log(result)
-          this.items = result.data
+          console.log(result.data.content)
+          this.items = result.data.content
         })
     }
   }
