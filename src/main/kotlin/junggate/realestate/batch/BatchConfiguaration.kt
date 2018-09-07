@@ -58,7 +58,7 @@ class BatchConfiguration{
                 .writer(writer)
                 .build()
     }
-    @Scheduled(fixedDelay = 10000)//처음 시작할때 한번....너무해..
+    @Scheduled(fixedDelay = 1000000000)//처음 시작할때 한번....너무해..
     fun schedule1(){
         batch.run()
     }
