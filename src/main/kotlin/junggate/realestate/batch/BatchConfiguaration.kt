@@ -1,20 +1,29 @@
 package junggate.realestate.batch
 
 import com.rometools.rome.feed.synd.SyndFeed
-import org.springframework.batch.core.Job
-import org.springframework.batch.core.Step
+import org.springframework.batch.core.*
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory
+import org.springframework.batch.core.launch.JobLauncher
 import org.springframework.batch.core.launch.support.RunIdIncrementer
+import org.springframework.batch.core.launch.support.SimpleJobLauncher
+import org.springframework.batch.core.repository.JobRepository
+import org.springframework.batch.core.repository.support.MapJobRepositoryFactoryBean
+import org.springframework.batch.support.transaction.ResourcelessTransactionManager
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.Primary
+import org.springframework.core.task.SimpleAsyncTaskExecutor
+import org.springframework.scheduling.annotation.Scheduled
+import org.springframework.transaction.PlatformTransactionManager
 
 @Configuration
 @EnableBatchProcessing
-
 class BatchConfiguration{
+    @Autowired
+    lateinit private var jobBuilderFactory: JobBuilderFactory
 
     @Autowired
     lateinit private var steps: StepBuilderFactory
@@ -28,23 +37,20 @@ class BatchConfiguration{
     @Autowired
     lateinit private var writer: ItemWriter
 
-    @Bean
-    fun job(jobs: JobBuilderFactory, step_rss: Step): Job? {
-        var job = jobs.get("job_rss")
-                .incrementer(RunIdIncrementer())
-                .start(step_rss)
-                .build()
+    @Autowired
+    lateinit private var batch: RssBatch
 
-        println("isRestartable ${job.isRestartable}")
+    @Bean
+    fun job(): Job? {
+        var job = jobBuilderFactory.get("job_rss")
+                .incrementer(RunIdIncrementer())
+                .start(rssStep())
+                .build()
         return job
     }
 
-    @Bean(name = arrayOf("step_rss"))
-    fun step1(): Step {
-//        return steps.get("step_rss")
-//                .tasklet(Tasklet { stepContirubution, chunkContext ->
-//                    RepeatStatus.CONTINUABLE
-//                }).build()
+    @Bean
+    fun rssStep(): Step {
         return steps.get("step_rss")
                 .chunk<String, SyndFeed>(5)
                 .reader(reader)
@@ -52,5 +58,8 @@ class BatchConfiguration{
                 .writer(writer)
                 .build()
     }
-
+    @Scheduled(fixedDelay = 1000000000)//처음 시작할때 한번....너무해..
+    fun schedule1(){
+        batch.run()
+    }
 }

@@ -9,15 +9,18 @@ import org.springframework.beans.factory.annotation.Autowired
 @Component
 class ItemReader(@Autowired private var rssService: RssService) :ItemReader<String>{
     private var index = 0
-    private var rssList:List<Rss> = arrayListOf()
+    private var rssList:MutableList<Rss> = mutableListOf()
 
     override fun read():String?{
         if (rssList.size == 0){
             rssList = rssService.findAll()
         }
 
-        if(rssList.size <= index)
+        if(rssList.size <= index) {
+            index = 0
+            rssList.clear()
             return null
+        }
 
         val rss = rssList[index]
         println("[reader] $index(${rssList.size} = ${rss.url})")

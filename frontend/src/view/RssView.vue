@@ -1,7 +1,21 @@
 <template>
   <div class="hello">
     <h1>RssView</h1>
+     <v-alert
+      :value="alert"
+      type="success"
+      transition="scale-transition"
+    >
+      RSS 추가 성공.
+    </v-alert>
     <br>
+      <v-text-field
+        name="input"
+        label="Rss Address"
+        id=""
+        v-model="rssAddress"
+        v-on:keyup="insertRss"
+        ></v-text-field>
     <v-data-table
       :headers="headers"
       :items="items"
@@ -28,10 +42,12 @@ export default {
       headers: [
         { align: 'center', sortable: false, text: 'id', value: 'id' },
         { align: 'center', sortable: false, text: 'Blog URL', value: 'url' },
-        { align: 'center', sortable: false, text: 'Create Date', value: 'initUpdateDate' },
-        { align: 'center', sortable: false, text: 'Update Date', value: 'lastUpdateDate' }
+        { align: 'center', sortable: false, text: 'Create Date', value: 'subscribeDate' },
+        { align: 'center', sortable: false, text: 'Update Date', value: 'updateDate' }
       ],
-      items: []
+      items: [],
+      rssAddress: '',
+      alert: false
     }
   },
   activated () {
@@ -44,6 +60,37 @@ export default {
           console.log(result)
           this.items = result.data
         })
+    },
+    insertRss: function (e) {
+      if (e.code === 'Enter') {
+        console.log('this.rssAddress: ' + this.rssAddress)
+        var url = (`${this.$baseURI}/rss/insert`)
+        console.log(url)
+
+        const data = new FormData()
+        data.append('address', `${this.rssAddress}`)
+
+        this.$http({
+          method: 'post',
+          url: url,
+          data: data
+        })
+          .then((result) => {
+            console.log(result)
+            this.loadData()
+            this.rssAddress = ''
+            this.alert = true
+
+            var timerId = setInterval(
+              (function (self) {
+                return function () {
+                  console.log('Interval ' + self.alert)
+                  self.alert = false
+                  clearInterval(timerId)
+                }
+              })(this), 3000)
+          })
+      }
     }
   }
 }
