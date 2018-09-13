@@ -18,9 +18,11 @@ class RssService @Autowired constructor(private val rssRepository: RssRepository
     }
 
     fun insertRssUrl(url:String){
-        var rss = Rss()
-        rss.url= url
-        rssRepository.save(rss)
+        if(findByUrl(url) == null) {
+            var rss = Rss()
+            rss.url = url
+            rssRepository.save(rss)
+        }
     }
 
     fun updateRss(rss:Rss){

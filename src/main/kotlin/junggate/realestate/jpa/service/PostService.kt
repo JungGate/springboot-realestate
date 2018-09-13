@@ -17,7 +17,9 @@ class PostService@Autowired constructor(private val postRepository: PostReposito
     }
 
     fun insertPost(post: Post){
-        postRepository.save(post)
+        if(find(post.link) == null){
+            postRepository.save(post)
+        }
     }
 
     fun find(link:String): Post?{

@@ -8,7 +8,8 @@ CREATE TABLE `rss` (
   `init_update_date` varchar(255),
   `last_update_date` varchar(255),
   `url` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX(`url`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `blog` (
