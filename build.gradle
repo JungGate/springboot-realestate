@@ -68,8 +68,11 @@ dependencies {
 }
 
 
-task webpack(type: NpmTask, dependsOn: 'npmInstall') {
-	args = ['run', 'build']
-}
-
-processResources.dependsOn 'webpack'
+//task webpack(type: NodeTask, dependsOn: 'npmInstall') {
+//	commandLine "./node_modules/.bin/webpack", "config/index.js", "build/bundle.js"
+//	script = project.file('node_modules/.bin/webpack')
+//}
+//
+//processResources.dependsOn 'webpack'
+//
+//clean.delete << file('node_modules')

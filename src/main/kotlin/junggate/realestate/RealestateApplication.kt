@@ -16,9 +16,7 @@ import org.springframework.scheduling.annotation.EnableScheduling
 class RealestateApplication
 
 fun main(args: Array<String>) {
-    val context = SpringApplication.run(RealestateApplication::class.java, *args)
-//    test_rss(context)
-//    test_feed(context)
+    SpringApplication.run(RealestateApplication::class.java, *args)
 }
 
 

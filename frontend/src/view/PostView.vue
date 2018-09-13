@@ -18,6 +18,12 @@
         </td>
       </template>
     </v-data-table>
+    <v-pagination
+      v-model="pagination.page"
+      :length="pagination.total"
+      :total-visible="10"
+      @input="onPageChange"
+    ></v-pagination>
   </div>
 </template>
 
@@ -29,11 +35,15 @@ export default {
       headers: [
         { align: 'center', sortable: false, text: 'id', value: '' },
         { align: 'center', sortable: false, text: 'Author', value: '' },
-        { align: 'center', sortable: false, text: 'Blog Title', value: '' },
         { align: 'center', sortable: false, text: 'Post Title', value: '' },
+        { align: 'center', sortable: false, text: 'Date', value: '' },
         { align: 'center', sortable: false, text: 'Link', value: '' }
       ],
-      items: []
+      items: [],
+      pagination: {
+        page: 0,
+        total: 0
+      }
     }
   },
   activated () {
@@ -41,11 +51,16 @@ export default {
   },
   methods: {
     loadData: function () {
-      this.$http.get(`${this.$baseURI}/post/data?page=0&size=10&sort=pubDate,desc`)
+      this.$http.get(`${this.$baseURI}/post/data?page=${this.pagination.page}&size=10&sort=pubDate,desc`)
         .then((result) => {
-          console.log(result.data.content)
+          console.log(result)
           this.items = result.data.content
+          this.pagination.total = result.data.totalPages
         })
+    },
+    onPageChange: function (page) {
+      this.pagination.page = page
+      this.loadData()
     }
   }
 }

@@ -17,7 +17,7 @@ class ItemWriter:ItemWriter<SyndFeed>{
     private lateinit var serviceBlog: BlogService
 
     @Autowired
-    private lateinit var servicePost: PostService
+    private var servicePost: PostService
 
     @Autowired
     private lateinit var serviceRss: RssService

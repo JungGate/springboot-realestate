@@ -45,7 +45,7 @@ class RssController{
         return list
     }
 
-    @PostMapping(value = "rss/insert")
+    @PostMapping(value = ["rss/insert"])
     @ResponseBody
     fun insert_rss(@RequestParam("address") address:String) : String{
         rssService.insertRssUrl(address)
