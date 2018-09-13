@@ -53,6 +53,7 @@ dependencies {
 	compile("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
 	compile group: 'org.webjars', name: 'bootstrap', version: '3.3.7-1'
 	compile('org.springframework.boot:spring-boot-starter-mustache')
+	compile('org.springframework.boot:spring-boot-starter-security')
 	compile('com.rometools:rome:1.9.0')
 	compile 'com.mitchellbosecke:pebble:2.4.0'
 
